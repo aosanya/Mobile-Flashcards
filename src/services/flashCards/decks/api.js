@@ -7,16 +7,17 @@ import {
   export function getDecks () {
     return Promise.all([
       _getDecks(),
-    ]).then(([decks]) => ({
-      decks,
+    ]).then(([decks1]) => (
+      {
+      decks1,
     }))
   }
 
   export function handleGetDecks () {
     return (dispatch) => {
       return getDecks()
-        .then(({ decks }) => {
-          dispatch(receiveDecks(decks))
+        .then(({ decks1 }) => {
+          dispatch(receiveDecks(decks1))
         })
     }
   }

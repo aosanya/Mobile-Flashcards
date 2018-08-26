@@ -34,11 +34,13 @@ function addSampleDecks(){
 }
 
 function formatResults (results) {
+
+    console.log(results)
     return results === null
     ? addSampleDecks()
     : JSON.parse(results)
 }
 
 export function _getDecks () {
-    return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(formatResults)
+       return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(formatResults)
 }

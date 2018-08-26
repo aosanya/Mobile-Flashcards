@@ -18,21 +18,29 @@ class Decks extends Component {
         if (ready === false) {
           return <AppLoading />
         }
-
         return (
             <View style={styles.decks}>
-                {Object.values(decks).map((deck) => (
-                    <Deck deck={deck} key={deck.id}/>
+                {Object.keys(decks).map((deck) => (
+                     <TouchableOpacity
+                     onPress={() => this.props.navigation.navigate(
+                       'DeckView',
+                       { deckKey: deck}
+                     )}
+
+                     style={styles.deck}
+                     >
+                        <Deck deck={decks[deck]} key={deck.id}/>
+                    </TouchableOpacity>
                 ))}
             </View>
         )
       }
 }
 
-function mapStateToProps (decks) {
+function mapStateToProps (state) {
     return {
-        ready : decks !== undefined,
-        decks : decks.decks
+        ready : state !== undefined,
+        decks : state.decks
     }
   }
 
@@ -47,11 +55,7 @@ const styles = StyleSheet.create({
       marginTop: 12
     },
     deck: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
         borderBottomColor: gray,
-        borderBottomWidth: 1,
-        padding: 15,
+        borderBottomWidth: 1
     }
   })

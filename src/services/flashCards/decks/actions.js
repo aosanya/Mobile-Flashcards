@@ -9,6 +9,7 @@ export function addDeck () {
 export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 
 export function receiveDecks (decks) {
+  console.log(decks)
   return {
     type: RECEIVE_DECKS,
     decks,

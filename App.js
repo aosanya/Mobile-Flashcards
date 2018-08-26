@@ -4,8 +4,10 @@ import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
-import { purple, white } from './src/services/utils/colors'
+import { blueChill, white } from './src/services/utils/colors'
 import Decks from './src/components/screens/decks/Decks'
+import DeckView from './src/components/screens/decks/DeckView'
+
 import reducers from './src/reducers'
 import middleware from './src/middleware'
 
@@ -21,10 +23,10 @@ const Tabs = createBottomTabNavigator({
     header: null
   },
   tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? purple : white,
+    activeTintColor: Platform.OS === 'ios' ? blueChill : white,
     style: {
       height: 56,
-      backgroundColor: Platform.OS === 'ios' ? white : purple,
+      backgroundColor: Platform.OS === 'ios' ? white : blueChill,
       shadowColor: 'rgba(0, 0, 0, 0.24)',
       shadowOffset: {
         width: 0,
@@ -40,6 +42,15 @@ const MainNavigator = createStackNavigator({
   Home: {
     screen: Tabs,
   },
+  DeckView: {
+    screen: DeckView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: blueChill,
+      }
+    }
+  }
 })
 
 const store = createStore(reducers, middleware)
@@ -55,7 +66,6 @@ export default class App extends React.Component {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

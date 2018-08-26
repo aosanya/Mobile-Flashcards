@@ -1,25 +1,26 @@
 
 
 
-  function formatDeck ({title}) {
-    return {
-      title: title,
-      question : [],
-    }
-  }
+  // function formatDeck ({title}) {
+  //   return {
+  //     title: title,
+
+  //     question : [],
+  //   }
+  // }
 
 
-  export function _saveDeck (deck) {
+  // export function _saveDeck (deck) {
 
-    return new Promise((res, rej) => {
-      const formattedDeck = formatDeck(deck)
+  //   return new Promise((res, rej) => {
+  //     const formattedDeck = formatDeck(deck)
 
-      decks = {
-        ...decks,
-        [formattedDeck.title]: formattedDeck
-      }
+  //     decks = {
+  //       ...decks,
+  //       [formattedDeck.title]: formattedDeck
+  //     }
 
-      return res(formattedDeck)
+  //     return res(formattedDeck)
 
-    })
-  }
+  //   })
+  // }
