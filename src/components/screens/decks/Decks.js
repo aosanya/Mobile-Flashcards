@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native
 import { connect } from 'react-redux'
 import { handleGetDecks } from '../../../services/flashCards/decks/api';
 import { AppLoading} from 'expo'
-import { gray, black } from '../../../services/utils/colors'
+import { gray } from '../../../services/utils/colors'
 import Deck from './Deck'
 
 class Decks extends Component {
@@ -22,14 +22,14 @@ class Decks extends Component {
             <View style={styles.decks}>
                 {Object.keys(decks).map((deck) => (
                      <TouchableOpacity
-                     onPress={() => this.props.navigation.navigate(
-                       'DeckView',
-                       { deckKey: deck}
-                     )}
-
-                     style={styles.deck}
+                        onPress={() => this.props.navigation.navigate(
+                        'DeckView',
+                        { deckKey: deck}
+                         )}
+                        style={styles.deck}
+                        key={deck}
                      >
-                        <Deck deck={decks[deck]} key={deck.id}/>
+                        <Deck deck={decks[deck]} key={deck}/>
                     </TouchableOpacity>
                 ))}
             </View>

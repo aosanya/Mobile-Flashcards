@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
 import { gray, black } from '../../../services/utils/colors'
 import Deck from './Deck'
+import TextButton from '../../TextButton'
+import { NavigationActions } from 'react-navigation'
 
 class DeckView extends Component {
     render() {
@@ -10,9 +12,15 @@ class DeckView extends Component {
         return (
             <View style={styles.deckView}>
                 <Deck deck={deck} key={deck.id}/>
+                    <TextButton style={{margin: 20}} onPress={this.props.addCard}>
+                        Add Card
+                    </TextButton>
+                    <TextButton style={{margin: 20}} onPress={this.props.startQuiz}>
+                        Start Quiz
+                    </TextButton>
             </View>
         )
-      }
+    }
 }
 
 function mapStateToProps (state, { navigation }) {
@@ -23,8 +31,16 @@ function mapStateToProps (state, { navigation }) {
     }
 }
 
+function mapDispatchToProps (dispatch, { navigation }) {
+    return {
+      addCard: () => navigation.navigate('AddCardView'),
+      startQuiz: () => navigation.navigate('QuizView'),
+    }
+  }
+
+
 export default connect(
-    mapStateToProps,
+    mapStateToProps,mapDispatchToProps,
 )(DeckView)
 
 const styles = StyleSheet.create({
