@@ -48,7 +48,7 @@ export const MainNavigator = createStackNavigator({
     Home: {
       screen: Tabs,
       navigationOptions: {
-        title: 'udacicards',
+        title: 'Udacicards',
         headerTintColor: white,
         headerStyle: {
           backgroundColor: blueChill,
@@ -58,6 +58,7 @@ export const MainNavigator = createStackNavigator({
     DeckView: {
       screen: DeckView,
       navigationOptions: {
+        title: 'Deck',
         headerTintColor: white,
         headerStyle: {
           backgroundColor: blueChill,
@@ -67,6 +68,7 @@ export const MainNavigator = createStackNavigator({
     AddCardView: {
       screen: AddCard,
       navigationOptions: {
+        title: 'Add Card',
         headerTintColor: white,
         headerStyle: {
           backgroundColor: blueChill,
@@ -76,6 +78,7 @@ export const MainNavigator = createStackNavigator({
     QuizView: {
         screen: Quiz,
         navigationOptions: {
+          title: 'Quiz',
           headerTintColor: white,
           headerStyle: {
             backgroundColor: blueChill,

@@ -23,8 +23,6 @@ class QuizCard extends Component {
                         <Text style={{fontSize: mediumFontSize, color: black}}>Question</Text>
                     </View>
                 </Flipper>
-
-
                 <TextButton style={{margin: 20, fontSize: mediumFontSize, color: green}} onPress={this.props.addCard}>
                     Correct
                 </TextButton>
