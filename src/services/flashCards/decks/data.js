@@ -34,8 +34,6 @@ function addSampleDecks(){
 }
 
 function formatResults (results) {
-
-    console.log(results)
     return results === null
     ? addSampleDecks()
     : JSON.parse(results)

@@ -6,9 +6,8 @@ import { AppLoading} from 'expo'
 import { gray } from '../../../services/utils/colors'
 import Deck from './Deck'
 
+
 class Decks extends Component {
-
-
     componentDidMount() {
         this.props.dispatch(handleGetDecks())
     }
@@ -32,6 +31,8 @@ class Decks extends Component {
                         <Deck deck={decks[deck]} key={deck}/>
                     </TouchableOpacity>
                 ))}
+
+
             </View>
         )
       }
@@ -57,5 +58,11 @@ const styles = StyleSheet.create({
     deck: {
         borderBottomColor: gray,
         borderBottomWidth: 1
+    },
+    flipper: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 15,
     }
   })

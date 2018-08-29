@@ -1,29 +1,34 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { handleGetDecks } from '../../../services/flashCards/decks/api';
 import { AppLoading} from 'expo'
 import { gray, black } from '../../../services/utils/colors'
 import { largeFontSize, mediumFontSize } from '../../../services/utils/fonts'
+import QuizCard from './QuizCard'
 
+class Quiz extends Component {
+    state = {
+        currentCard: 1,
+    }
 
-class AddCard extends Component {
     render() {
+        const { deck } = this.props
         return (
-            <View style={styles.deck}>
-                <Text style={{fontSize: largeFontSize, color: black}}>Quiz</Text>
+            <View>
+                <QuizCard card={deck.questions[this.state.currentCard]}/>
             </View>
         )
-      }
+    }
 }
 
-export default AddCard
+function mapStateToProps (state, { navigation }) {
 
-const styles = StyleSheet.create({
-    deck: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 15,
+    const { deckKey } = navigation.state.params
+    console.log(deckKey)
+    return {
+        deckKey,
+        deck: state.decks[deckKey],
     }
-  })
+}
+
+export default connect(mapStateToProps) (Quiz)

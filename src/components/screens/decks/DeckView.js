@@ -12,12 +12,12 @@ class DeckView extends Component {
         return (
             <View style={styles.deckView}>
                 <Deck deck={deck} key={deck.id}/>
-                    <TextButton style={{margin: 20}} onPress={this.props.addCard}>
-                        Add Card
-                    </TextButton>
-                    <TextButton style={{margin: 20}} onPress={this.props.startQuiz}>
-                        Start Quiz
-                    </TextButton>
+                <TextButton style={{margin: 20}} onPress={this.props.addCard}>
+                    Add Card
+                </TextButton>
+                <TextButton style={{margin: 20}} onPress={this.props.startQuiz}>
+                    Start Quiz
+                </TextButton>
             </View>
         )
     }
@@ -32,9 +32,10 @@ function mapStateToProps (state, { navigation }) {
 }
 
 function mapDispatchToProps (dispatch, { navigation }) {
+    const { deckKey } = navigation.state.params
     return {
-      addCard: () => navigation.navigate('AddCardView'),
-      startQuiz: () => navigation.navigate('QuizView'),
+      addCard: () => navigation.navigate('AddCardView', { deckKey: deckKey}),
+      startQuiz: () => navigation.navigate('QuizView', { deckKey: deckKey}),
     }
   }
 
