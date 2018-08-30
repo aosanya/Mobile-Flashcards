@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Platform, ScrollView, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { handleGetDecks } from '../../../services/flashCards/decks/api';
 import { AppLoading} from 'expo'
-import { green, black, red } from '../../../services/utils/colors'
-import TextButton from '../../TextButton'
+import { blueChill, black } from '../../../services/utils/colors'
+
 import { largeFontSize, mediumFontSize } from '../../../services/utils/fonts'
 import Flipper from '../../Flipper'
 
@@ -12,24 +12,18 @@ class QuizCard extends Component {
     render() {
         const { card } = this.props
         return (
-            <View style={styles.card}>
-                <Flipper style={styles.flipper}>
-                    <View>
+            <ScrollView>
+                <Flipper style={styles.card}>
+                    <View style={styles.card}>
                         <Text style={{fontSize: largeFontSize, color: black}}>{card.question}</Text>
-                        <Text style={{fontSize: mediumFontSize, color: black}}>Answer</Text>
+                        <Text style={{fontSize: mediumFontSize, color: blueChill, padding:15}}>Show Answer</Text>
                     </View>
-                    <View>
+                    <View style={styles.card}>
                         <Text style={{fontSize: largeFontSize, color: black}}>{card.answer}</Text>
-                        <Text style={{fontSize: mediumFontSize, color: black}}>Question</Text>
+                        <Text style={{fontSize: mediumFontSize, color: blueChill, padding:15}}>Show Question</Text>
                     </View>
                 </Flipper>
-                <TextButton style={{margin: 20, fontSize: mediumFontSize, color: green}} onPress={this.props.addCard}>
-                    Correct
-                </TextButton>
-                <TextButton style={{margin: 20, fontSize: mediumFontSize, color: red}} onPress={this.props.startQuiz}>
-                    Incorrect
-                </TextButton>
-            </View>
+            </ScrollView>
         )
     }
 }

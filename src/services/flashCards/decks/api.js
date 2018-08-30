@@ -1,8 +1,8 @@
 import {
-    _getDecks
+    _getDecks, _saveDeck, _saveQuestion
   } from './data'
 
-  import { receiveDecks} from './actions'
+  import { receiveDecks, addDeck} from './actions'
 
   export function getDecks () {
     return Promise.all([
@@ -22,22 +22,39 @@ import {
     }
   }
 
-  // function saveDeck (info) {
-  //   return Promise.all([
-  //     _saveDeck(info)
-  //   ]).then(([decks]) => (
-  //     {decks}
-  //   ))
-  // }
+  function saveDeck (title) {
+    console.log(title)
+    return Promise.all([
+      _saveDeck(title)
+    ]).then(([decks]) => (
+      {decks}
+    ))
+  }
 
-  // export function handleAddDeck (title) {
-  //   return (dispatch) => {
+  export function handleAddDeck (title) {
+    return (dispatch) => {
+      return saveDeck(title)
+        .then(({ decks }) => {
+          dispatch(receiveDecks(decks))
+          dispatch(addDeck())
+        })
+    }
+  }
 
-  //     return saveDeck({
-  //       title
-  //     })
-  //       .then(() => {
-  //         dispatch(addDeck())
-  //       })
-  //   }
-  // }
+  function saveQuestion (deck, question, answer) {
+    return Promise.all([
+      _saveQuestion(deck, question, answer)
+    ]).then(([decks]) => (
+      {decks}
+    ))
+  }
+
+  export function handleAddQuestion (deck, question, answer) {
+    return (dispatch) => {
+      return saveQuestion(deck, question, answer)
+        .then(({ decks }) => {
+          dispatch(receiveDecks(decks))
+          dispatch(addDeck())
+        })
+    }
+  }

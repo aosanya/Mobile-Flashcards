@@ -1,8 +1,15 @@
 export const ADD_DECK = 'ADD_DECK'
+export const ADD_QUESTION = 'ADD_QUESTION'
 
 export function addDeck () {
   return {
     type: ADD_DECK,
+  }
+}
+
+export function addQuestion () {
+  return {
+    type: ADD_QUESTION,
   }
 }
 
