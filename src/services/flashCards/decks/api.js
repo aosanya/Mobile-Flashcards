@@ -1,8 +1,8 @@
 import {
-    _getDecks, _saveDeck, _saveQuestion
+    _getDecks, _addNewDeck, _saveDeck, _saveQuestion
   } from './data'
 
-  import { receiveDecks, addDeck} from './actions'
+  import { receiveDecks, addDeck, saveDeck} from './actions'
 
   export function getDecks () {
     return Promise.all([
@@ -22,10 +22,10 @@ import {
     }
   }
 
-  function saveDeck (title) {
+  function addNewDeck (title) {
     console.log(title)
     return Promise.all([
-      _saveDeck(title)
+      _addNewDeck(title)
     ]).then(([decks]) => (
       {decks}
     ))
@@ -33,10 +33,28 @@ import {
 
   export function handleAddDeck (title) {
     return (dispatch) => {
-      return saveDeck(title)
+      return addNewDeck(title)
         .then(({ decks }) => {
           dispatch(receiveDecks(decks))
           dispatch(addDeck())
+        })
+    }
+  }
+
+  function saveExistingDeck (deck) {
+    return Promise.all([
+      _saveDeck(deck)
+    ]).then(([decks]) => (
+      {decks}
+    ))
+  }
+
+  export function handleSaveDeck (deck) {
+    return (dispatch) => {
+      return saveExistingDeck(deck)
+        .then(({ decks }) => {
+          dispatch(receiveDecks(decks))
+          dispatch(saveDeck())
         })
     }
   }

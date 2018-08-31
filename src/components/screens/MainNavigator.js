@@ -5,23 +5,23 @@ import { blueChill, white } from '../../services/utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import Decks from './decks/Decks'
 import DeckView from './decks/DeckView'
-import NewDeck from './decks/NewDeck'
+import AddEditDeck from './decks/AddEditDeck'
 import AddCard from './addCard/AddCard'
 import Quiz from './quiz/Quiz'
 
-const Tabs = createBottomTabNavigator({
-    Decks: {
-      screen: Decks,
+const DeckTabs = createBottomTabNavigator({
+    Deck: {
+      screen: DeckView,
       navigationOptions: {
-        tabBarLabel: 'Decks',
+        tabBarLabel: 'Deck',
         tabBarIcon: ({ tintColor }) => <Ionicons name='ios-albums' size={30} color={tintColor} />
       },
     },
     NewDeck: {
-        screen: NewDeck,
+        screen: AddEditDeck,
         navigationOptions: {
-          tabBarLabel: 'Decks',
-          tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
+          tabBarLabel: 'Edit Deck',
+          tabBarIcon: ({ tintColor }) => <Ionicons name='ios-create' size={30} color={tintColor} />
         },
       },
     }, {
@@ -44,9 +44,44 @@ const Tabs = createBottomTabNavigator({
         }
     })
 
+    const HomeTabs = createBottomTabNavigator({
+      Decks: {
+        screen: Decks,
+        navigationOptions: {
+          tabBarLabel: 'Decks',
+          tabBarIcon: ({ tintColor }) => <Ionicons name='ios-albums' size={30} color={tintColor} />
+        },
+      },
+      NewDeck: {
+          screen: AddEditDeck,
+          navigationOptions: {
+            tabBarLabel: 'Decks',
+            tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
+          },
+        },
+      }, {
+          navigationOptions: {
+          header: null
+          },
+          tabBarOptions: {
+          activeTintColor: Platform.OS === 'ios' ? blueChill : white,
+          style: {
+              height: 56,
+              backgroundColor: Platform.OS === 'ios' ? white : blueChill,
+              shadowColor: 'rgba(0, 0, 0, 0.24)',
+              shadowOffset: {
+              width: 0,
+              height: 3
+              },
+              shadowRadius: 6,
+              shadowOpacity: 1
+          }
+          }
+      })
+
 export const MainNavigator = createStackNavigator({
     Home: {
-      screen: Tabs,
+      screen: HomeTabs,
       navigationOptions: {
         title: 'Udacicards',
         headerTintColor: white,
@@ -56,7 +91,7 @@ export const MainNavigator = createStackNavigator({
       }
     },
     DeckView: {
-      screen: DeckView,
+      screen: DeckTabs,
       navigationOptions: {
         title: 'Deck',
         headerTintColor: white,

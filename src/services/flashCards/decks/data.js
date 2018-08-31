@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native'
 export const DECKS_STORAGE_KEY = 'KidoFlashCards:DECKS'
 
 let sampleDecks = {
-    React: {
+    D202915gq2kt6q4ths9ltz0crzej: {
         id:'202915gq2kt6q4ths9ltz0crzej',
         timestamp:1535652540619,
         title: 'React',
@@ -21,7 +21,7 @@ let sampleDecks = {
             }
         }
     },
-    JavaScript: {
+    D202915gq5kt6q4ths9ltz0crzek: {
         id : '202915gq5kt6q4ths9ltz0crzej',
         timestamp:1535652540619,
         title: 'JavaScript',
@@ -76,9 +76,17 @@ export function _getDecks () {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(formatResults)
 }
 
-export function _saveDeck (title) {
+export function _addNewDeck (title) {
+    let deck = formatNewDeck(title)
     AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-        [title]: formatNewDeck(title)
+        [deck.id]: deck
+     }))
+    return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(formatResults)
+}
+
+export function _saveDeck (deck) {
+    AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+        [deck.id]: deck
      }))
     return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(formatResults)
 }

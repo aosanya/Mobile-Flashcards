@@ -3,11 +3,10 @@ import { View, Text, StyleSheet, ScrollView, Platform, TouchableOpacity } from '
 import { connect } from 'react-redux'
 import { AppLoading} from 'expo'
 import { green, red, black } from '../../../services/utils/colors'
-import { largeFontSize, mediumFontSize, smallFontSize } from '../../../services/utils/fonts'
+import { mediumFontSize, smallFontSize } from '../../../services/utils/fonts'
 import TextButton from '../../TextButton'
 import QuizCard from './QuizCard'
 import QuizResults from './QuizResults'
-
 
 class Quiz extends Component {
     state = {

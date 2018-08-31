@@ -5,22 +5,38 @@ import { handleGetDecks } from '../../../services/flashCards/decks/api';
 import { AppLoading} from 'expo'
 import { gray, black } from '../../../services/utils/colors'
 import { largeFontSize, mediumFontSize, smallFontSize } from '../../../services/utils/fonts'
-import { handleAddDeck } from '../../../services/flashCards/decks/api'
+import { handleAddDeck, handleSaveDeck } from '../../../services/flashCards/decks/api'
+
 import TextButton from '../../TextButton'
 
-class NewDeck extends Component {
+class AddEditDeck extends Component {
     state = {
         title: '',
     }
 
-    addDeck = () => {
-        this.props.dispatch(handleAddDeck(this.state.title))
+    componentDidMount(){
+        this.setState((prevState) => {
+            return {title: this.props.deck === undefined ? '' : this.props.deck.title};
+        })
+        console.log(this.state.title)
+    }
+
+    saveDeck = () => {
+        const { deck } = this.props
+        if (deck === undefined){
+            this.props.dispatch(handleAddDeck(this.state.title))
+        }
+        else{
+            deck.title = this.state.title
+            this.props.dispatch(handleSaveDeck(deck))
+        }
     }
 
     render() {
+        const { deckKey } = this.props
         return (
             <View style={styles.NewDeck}>
-                <Text style={styles.Prompt}>What is the title of your new deck?</Text>
+                {deckKey === undefined ? <Text style={styles.Prompt}>What is the title of your new deck?</Text> : <Text style={styles.Prompt}>What is the new title of your deck?</Text>}
                 <View style={{flexDirection:'row'}}>
                     <TextInput
                         style={styles.Input}
@@ -29,7 +45,7 @@ class NewDeck extends Component {
                         placeholder='Deck Title'>
                     </TextInput>
                 </View>
-                <TextButton style={{margin: 20, fontSize: mediumFontSize, color: black}} onPress={this.addDeck}>
+                <TextButton style={{margin: 20, fontSize: mediumFontSize, color: black}} onPress={this.saveDeck}>
                     Submit
                 </TextButton>
             </View>
@@ -37,15 +53,26 @@ class NewDeck extends Component {
       }
 }
 
-function mapStateToProps (state) {
-    return {
+function mapStateToProps (state, { navigation }) {
+    var deckKey = undefined
+    var deck = undefined
 
+    if (navigation.state.params !== undefined){
+        deckKey = navigation.state.params.deckKey
+        console.log(deckKey)
+        deck = deckKey === undefined ? undefined : state.decks[deckKey]
+        console.log(deck)
     }
-  }
+
+    return {
+        deckKey,
+        deck: deck,
+    }
+}
 
 export default connect(
     mapStateToProps,
-)(NewDeck)
+)(AddEditDeck)
 
 
 const styles = StyleSheet.create({
