@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Platform, TextInput, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TextInput } from 'react-native'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 import { handleAddQuestion } from '../../../services/flashCards/decks/api';
-import { AppLoading} from 'expo'
-import { gray, black } from '../../../services/utils/colors'
-import { largeFontSize, mediumFontSize, smallFontSize } from '../../../services/utils/fonts'
+import { black } from '../../../services/utils/colors'
+import { mediumFontSize, smallFontSize } from '../../../services/utils/fonts'
 import TextButton from '../../TextButton'
 
 class AddCard extends Component {
@@ -15,6 +15,12 @@ class AddCard extends Component {
 
     addCard = () => {
         this.props.dispatch(handleAddQuestion(this.props.deck, this.state.question, this.state.answer))
+
+        const backAction = NavigationActions.back({
+            key: null
+          })
+
+        this.props.navigation.dispatch(backAction)
     }
 
     render() {
@@ -51,8 +57,6 @@ class AddCard extends Component {
 function mapStateToProps (state, { navigation }) {
 
     const { deckKey } = navigation.state.params
-    console.log( deckKey )
-
     return {
         deckKey,
         deck: state.decks[deckKey],

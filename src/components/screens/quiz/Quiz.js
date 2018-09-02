@@ -7,6 +7,7 @@ import { mediumFontSize, smallFontSize } from '../../../services/utils/fonts'
 import TextButton from '../../TextButton'
 import QuizCard from './QuizCard'
 import QuizResults from './QuizResults'
+import { handleSaveDeck } from '../../../services/flashCards/decks/api'
 
 class Quiz extends Component {
     state = {
@@ -26,6 +27,7 @@ class Quiz extends Component {
         this.setState((prevState) => {
             return {correct: prevState.correct + 1};
         })
+        this.saveQuestion(true)
         this.next()
     }
 
@@ -33,11 +35,22 @@ class Quiz extends Component {
         this.setState((prevState) => {
             return {incorrect: prevState.incorrect + 1};
         })
+        this.saveQuestion(false)
         this.next()
     }
 
-    render() {
+    saveQuestion = (correct) => {
         const { deck, questions } = this.props
+        const question = questions[this.state.currentCard]
+        question.views += 1
+        question.correct += correct ? 1 : 0
+        question.lastViewed = Date.now()
+        deck.questions[question.id] = question
+        this.props.dispatch(handleSaveDeck(deck))
+    }
+
+    render() {
+        const { questions } = this.props
         return (
             <View>
                 {this.state.currentCard === questions.length

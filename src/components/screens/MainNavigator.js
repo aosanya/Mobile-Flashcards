@@ -5,8 +5,11 @@ import { blueChill, white } from '../../services/utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import Decks from './decks/Decks'
 import DeckView from './decks/DeckView'
+import Cards from './cards/Cards'
 import AddEditDeck from './decks/AddEditDeck'
-import AddCard from './addCard/AddCard'
+import CardView from './cards/CardView'
+import AddCard from './cards/AddCard'
+
 import Quiz from './quiz/Quiz'
 
 const DeckTabs = createBottomTabNavigator({
@@ -14,7 +17,7 @@ const DeckTabs = createBottomTabNavigator({
       screen: DeckView,
       navigationOptions: {
         tabBarLabel: 'Deck',
-        tabBarIcon: ({ tintColor }) => <Ionicons name='ios-albums' size={30} color={tintColor} />
+        tabBarIcon: ({ tintColor }) => <Ionicons name='ios-archive' size={30} color={tintColor} />
       },
     },
     NewDeck: {
@@ -24,7 +27,15 @@ const DeckTabs = createBottomTabNavigator({
           tabBarIcon: ({ tintColor }) => <Ionicons name='ios-create' size={30} color={tintColor} />
         },
       },
-    }, {
+      Cards: {
+        screen: Cards,
+        navigationOptions: {
+          tabBarLabel: 'Cards',
+          tabBarIcon: ({ tintColor }) => <Ionicons name='ios-albums' size={30} color={tintColor} />
+        },
+      },
+    },
+     {
         navigationOptions: {
         header: null
         },
@@ -114,6 +125,16 @@ export const MainNavigator = createStackNavigator({
         screen: Quiz,
         navigationOptions: {
           title: 'Quiz',
+          headerTintColor: white,
+          headerStyle: {
+            backgroundColor: blueChill,
+          }
+        }
+      },
+    CardView: {
+        screen: CardView,
+        navigationOptions: {
+          title: 'Card',
           headerTintColor: white,
           headerStyle: {
             backgroundColor: blueChill,

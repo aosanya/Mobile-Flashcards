@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Platform, FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { handleGetDecks } from '../../../services/flashCards/decks/api';
 import { AppLoading} from 'expo'
-import { gray } from '../../../services/utils/colors'
+import { gray, lightGray } from '../../../services/utils/colors'
 import Deck from './Deck'
 
 
@@ -12,36 +12,45 @@ class Decks extends Component {
         this.props.dispatch(handleGetDecks())
     }
 
+
+    _renderItem = ({item}) => (
+        <View>
+            <TouchableOpacity
+                onPress={() => this.props.navigation.navigate(
+                                 'DeckView',
+                                { deckKey: item}
+                                 )}
+                style={styles.deck}
+                key={item}
+            >
+                <Deck deck={this.props.decks[item]} key={item}/>
+            </TouchableOpacity>
+        </View>
+      )
+
     render() {
-        const { ready, decks } = this.props
+        const { ready, sortedDeckKeys } = this.props
         if (ready === false) {
           return <AppLoading />
         }
+
         return (
-            <View style={styles.decks}>
-                {Object.keys(decks).map((deck) => (
-                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate(
-                        'DeckView',
-                        { deckKey: deck}
-                         )}
-                        style={styles.deck}
-                        key={deck}
-                     >
-                        <Deck deck={decks[deck]} key={deck}/>
-                    </TouchableOpacity>
-                ))}
-
-
-            </View>
+            <FlatList
+                data={sortedDeckKeys}
+                renderItem={this._renderItem}
+             />
         )
       }
 }
 
 function mapStateToProps (state) {
+
+    var sortedDecks = Object.values(state.decks).map((deck) => (deck))
+    sortedDecks.sort((a,b) => (b.title > a.title ? -1 : 1)).map((item) => (item.title))
     return {
         ready : state !== undefined,
-        decks : state.decks
+        decks : state.decks,
+        sortedDeckKeys : sortedDecks.map((deck) => (deck.id))
     }
   }
 
@@ -56,13 +65,7 @@ const styles = StyleSheet.create({
       marginTop: 12
     },
     deck: {
-        borderBottomColor: gray,
+        borderBottomColor: lightGray,
         borderBottomWidth: 1
-    },
-    flipper: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 15,
     }
   })

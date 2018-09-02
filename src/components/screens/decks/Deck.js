@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
-import { connect } from 'react-redux'
-import { handleGetDecks } from '../../../services/flashCards/decks/api';
-import { AppLoading} from 'expo'
+import { View, Text, StyleSheet } from 'react-native'
 import { gray, black } from '../../../services/utils/colors'
 import { largeFontSize, mediumFontSize } from '../../../services/utils/fonts'
 

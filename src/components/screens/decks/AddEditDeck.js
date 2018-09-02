@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, StyleSheet, Platform, TextInput, TouchableOpacity } from 'react-native'
-import { handleGetDecks } from '../../../services/flashCards/decks/api';
-import { AppLoading} from 'expo'
-import { gray, black } from '../../../services/utils/colors'
+import { View, Text, StyleSheet, TextInput } from 'react-native'
+import { NavigationActions } from 'react-navigation'
+import { black } from '../../../services/utils/colors'
 import { largeFontSize, mediumFontSize, smallFontSize } from '../../../services/utils/fonts'
 import { handleAddDeck, handleSaveDeck } from '../../../services/flashCards/decks/api'
 
@@ -18,7 +17,6 @@ class AddEditDeck extends Component {
         this.setState((prevState) => {
             return {title: this.props.deck === undefined ? '' : this.props.deck.title};
         })
-        console.log(this.state.title)
     }
 
     saveDeck = () => {
@@ -30,6 +28,11 @@ class AddEditDeck extends Component {
             deck.title = this.state.title
             this.props.dispatch(handleSaveDeck(deck))
         }
+        const backAction = NavigationActions.back({
+            key: null
+          })
+
+        this.props.navigation.dispatch(backAction)
     }
 
     render() {
@@ -69,6 +72,7 @@ function mapStateToProps (state, { navigation }) {
         deck: deck,
     }
 }
+
 
 export default connect(
     mapStateToProps,

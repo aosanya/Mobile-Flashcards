@@ -3,34 +3,43 @@ export const DECKS_STORAGE_KEY = 'KidoFlashCards:DECKS'
 
 let sampleDecks = {
     D202915gq2kt6q4ths9ltz0crzej: {
-        id:'202915gq2kt6q4ths9ltz0crzej',
+        id:'D202915gq2kt6q4ths9ltz0crzej',
         timestamp:1535652540619,
         title: 'React',
         questions: {
-            '202915gq3kt6q4ths9ltz0crzej' : {
-                id : '202915gq3kt6q4ths9ltz0crzej',
+            'Q12915gq3kt6q4ths9ltz0crzej' : {
+                id : 'Q12915gq3kt6q4ths9ltz0crzej',
                 timestamp:1535652540619,
                 question: 'What is React?',
-                answer: 'A library for managing user interfaces'
+                answer: 'A library for managing user interfaces',
+                views: 0,
+                correct: 0,
+                lastViewed: undefined
             },
-            '202915gq4kt6q4ths9ltz0crzej' : {
-                id : '202915gq4kt6q4ths9ltz0crzej',
+            'Q22915gq4kt6q4ths9ltz0crzej' : {
+                id : 'Q22915gq4kt6q4ths9ltz0crzej',
                 timestamp:1535652540619,
                 question: 'Where do you make Ajax requests in React?',
-                answer: 'The componentDidMount lifecycle event'
+                answer: 'The componentDidMount lifecycle event',
+                views: 0,
+                correct: 0,
+                lastViewed: undefined
             }
         }
     },
     D202915gq5kt6q4ths9ltz0crzek: {
-        id : '202915gq5kt6q4ths9ltz0crzej',
+        id : 'D202915gq5kt6q4ths9ltz0crzek',
         timestamp:1535652540619,
         title: 'JavaScript',
         questions: {
-            '202915gq6kt6q4ths9ltz0crzej' : {
-                id : '202915gq6kt6q4ths9ltz0crzej',
+            'Q302915gq6kt6q4ths9ltz0crzej' : {
+                id : 'Q302915gq6kt6q4ths9ltz0crzej',
                 timestamp:1535652540619,
                 question: 'What is a closure?',
-                answer: 'The combination of a function and the lexical environment within which that function was declared.'
+                answer: 'The combination of a function and the lexical environment within which that function was declared.',
+                views: 0,
+                correct: 0,
+                lastViewed: undefined
             }
         }
     }
@@ -65,10 +74,13 @@ function formatNewDeck(title) {
 
 function formatNewQuestion(question, answer) {
     return {
-            id : generateUID(),
-            timestamp: Date.now(),
-            question : question,
-            answer : answer
+        id : generateUID(),
+        timestamp: Date.now(),
+        question : question,
+        answer : answer,
+        views: 0,
+        correct: 0,
+        lastViewed: undefined
     }
 }
 
@@ -93,15 +105,13 @@ export function _saveDeck (deck) {
 
 export function _saveQuestion (deck, question, answer) {
     const formattedQuestion = formatNewQuestion(question, answer)
-    console.log(deck)
     deck.questions = {
         ...deck.questions,
         [formattedQuestion.id]: formattedQuestion
     }
 
-    console.log(deck)
     AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-        [deck.title]: deck
+        [deck.id]: deck
      }))
     return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(formatResults)
 }
