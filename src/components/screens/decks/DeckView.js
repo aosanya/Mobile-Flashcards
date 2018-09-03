@@ -4,21 +4,19 @@ import { View,  StyleSheet } from 'react-native'
 import Deck from './Deck'
 import TextButton from '../../TextButton'
 
-class DeckView extends Component {
-    render() {
-        const { deck } = this.props
-        return (
-            <View style={styles.deckView}>
-                <Deck deck={deck} key={deck.id}/>
-                <TextButton style={{margin: 20}} onPress={this.props.addCard}>
-                    Add Card
-                </TextButton>
-                <TextButton style={{margin: 20}} onPress={this.props.startQuiz}>
-                    Start Quiz
-                </TextButton>
-            </View>
-        )
-    }
+const DeckView = (props) => {
+    const { deck } = props
+    return (
+        <View style={styles.deckView}>
+            <Deck deck={deck} key={deck.id}/>
+            <TextButton style={{margin: 20}} onPress={props.addCard}>
+                Add Card
+            </TextButton>
+            <TextButton style={{margin: 20}} onPress={props.startQuiz}>
+                Start Quiz
+            </TextButton>
+        </View>
+    )
 }
 
 function mapStateToProps (state, { navigation }) {

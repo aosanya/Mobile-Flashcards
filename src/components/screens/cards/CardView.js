@@ -1,17 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { View, StyleSheet} from 'react-native'
 import { connect } from 'react-redux'
 import Card from './Card'
 
-class CardView extends Component {
-    render() {
-        const {card} = this.props
-        return (
-            <View style={styles.deck}>
-                <Card key={card.id} card={card}/>
-            </View>
-        )
-    }
+const CardView = (props) => {
+    const {card} = props
+    return (
+        <View style={styles.deck}>
+            <Card key={card.id} card={card}/>
+        </View>
+    )
 }
 
 function mapStateToProps (state, { navigation }) {

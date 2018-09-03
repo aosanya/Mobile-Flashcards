@@ -5,36 +5,34 @@ import {  MaterialIcons } from '@expo/vector-icons'
 import { black, gray, green, bittersweet } from '../../../services/utils/colors'
 import { tinyFontSize, smallFontSize, mediumFontSize } from '../../../services/utils/fonts'
 
-class Card extends PureComponent {
-    render() {
-        const { card } = this.props
-        return (
-            <View style={styles.card}>
-                <Text style={{fontSize: mediumFontSize, color: black}}>{card.question}</Text>
-                <Text style={{fontSize: smallFontSize, color: gray, padding: 5}}>{card.answer}</Text>
-                <View style={styles.stats}>
+const Card = (props) => {
+    const { card } = props
+    return (
+        <View style={styles.card}>
+            <Text style={{fontSize: mediumFontSize, color: black}}>{card.question}</Text>
+            <Text style={{fontSize: smallFontSize, color: gray, padding: 5}}>{card.answer}</Text>
+            <View style={styles.stats}>
+                <View style={styles.stat}>
+                    <MaterialIcons
+                    name='visibility'
+                    color={bittersweet}
+                    size={15}
+                    />
+                    <Text style={{fontSize: tinyFontSize, color: black, padding: 5}}>{card.views}</Text>
+                </View>
+                {card.views === 0 ? null :
                     <View style={styles.stat}>
                         <MaterialIcons
-                        name='visibility'
-                        color={bittersweet}
+                        name='done'
+                        color={green}
                         size={15}
                         />
-                        <Text style={{fontSize: tinyFontSize, color: black, padding: 5}}>{card.views}</Text>
+                        <Text style={{fontSize: tinyFontSize, color: black, padding: 5}}>{ (card.correct / card.views) * 100 }%</Text>
                     </View>
-                    {card.views === 0 ? null :
-                        <View style={styles.stat}>
-                            <MaterialIcons
-                            name='done'
-                            color={green}
-                            size={15}
-                            />
-                            <Text style={{fontSize: tinyFontSize, color: black, padding: 5}}>{ (card.correct / card.views) * 100 }%</Text>
-                        </View>
-                    }
-                </View>
+                }
             </View>
-        )
-    }
+        </View>
+    )
 }
 
 export default Card

@@ -11,7 +11,7 @@ class Cards extends Component {
             <TouchableOpacity
                 onPress={() => this.props.navigation.navigate(
                 'CardView',
-                {deckKey: deckKey,  cardKey: item}
+                {deckKey: this.props.deckKey,  cardKey: item}
                     )}
                 style={styles.card}
                 key={item}
@@ -43,7 +43,6 @@ function mapStateToProps (state, { navigation }) {
         deckKey = navigation.state.params.deckKey
         deck = deckKey === undefined ? undefined : state.decks[deckKey]
     }
-
     return {
         deckKey,
         deck: deck,
