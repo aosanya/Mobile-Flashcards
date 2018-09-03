@@ -28,6 +28,11 @@ class AddEditDeck extends Component {
             deck.title = this.state.title
             this.props.dispatch(handleSaveDeck(deck))
         }
+
+        this.setState((prevState) => {
+            return {title: ''};
+        })
+
         const backAction = NavigationActions.back({
             key: null
           })
@@ -62,9 +67,7 @@ function mapStateToProps (state, { navigation }) {
 
     if (navigation.state.params !== undefined){
         deckKey = navigation.state.params.deckKey
-        console.log(deckKey)
         deck = deckKey === undefined ? undefined : state.decks[deckKey]
-        console.log(deck)
     }
 
     return {

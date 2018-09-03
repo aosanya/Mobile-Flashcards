@@ -23,7 +23,6 @@ import {
   }
 
   function addNewDeck (title) {
-    console.log(title)
     return Promise.all([
       _addNewDeck(title)
     ]).then(([decks]) => (

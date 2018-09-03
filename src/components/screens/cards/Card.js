@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
-import { View, Text, StyleSheet, Platform, ScrollView, TouchableOpacity } from 'react-native'
-import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { View, Text, StyleSheet } from 'react-native'
+import {  MaterialIcons } from '@expo/vector-icons'
 
 import { black, gray, green, bittersweet } from '../../../services/utils/colors'
 import { tinyFontSize, smallFontSize, mediumFontSize } from '../../../services/utils/fonts'
@@ -8,7 +8,6 @@ import { tinyFontSize, smallFontSize, mediumFontSize } from '../../../services/u
 class Card extends PureComponent {
     render() {
         const { card } = this.props
-        console.log(card)
         return (
             <View style={styles.card}>
                 <Text style={{fontSize: mediumFontSize, color: black}}>{card.question}</Text>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Platform, FlatList, TouchableOpacity } from 'react-native'
+import { View,  StyleSheet,  FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { handleGetDecks } from '../../../services/flashCards/decks/api';
 import { AppLoading} from 'expo'
-import { gray, lightGray } from '../../../services/utils/colors'
+import { lightGray } from '../../../services/utils/colors'
 import Deck from './Deck'
 
 

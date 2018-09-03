@@ -26,7 +26,6 @@ class Cards extends Component {
 
     render() {
         const { questionsKeys } = this.props
-        console.log(questionsKeys)
         return (
             <FlatList
                 data={questionsKeys}

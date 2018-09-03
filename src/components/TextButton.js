@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { blueChill } from '../services/utils/colors'
-import { largeFontSize, mediumFontSize } from '../services/utils/fonts'
+import { mediumFontSize } from '../services/utils/fonts'
 
 export default function TextButton ({ children, onPress, style = {} }) {
   return (

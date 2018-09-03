@@ -20,8 +20,15 @@ class AddCard extends Component {
             key: null
           })
 
+
+        this.setState(() => {
+            return {question: '', answer: ''};
+        })
+
+
         this.props.navigation.dispatch(backAction)
     }
+
 
     render() {
         return (

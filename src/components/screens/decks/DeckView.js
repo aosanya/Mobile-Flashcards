@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
-import { gray, black } from '../../../services/utils/colors'
+import { View,  StyleSheet } from 'react-native'
 import Deck from './Deck'
 import TextButton from '../../TextButton'
-import { NavigationActions } from 'react-navigation'
 
 class DeckView extends Component {
     render() {

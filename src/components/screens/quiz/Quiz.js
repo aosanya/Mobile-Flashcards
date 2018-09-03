@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, ScrollView, Platform, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import { AppLoading} from 'expo'
 import { green, red, black } from '../../../services/utils/colors'
 import { mediumFontSize, smallFontSize } from '../../../services/utils/fonts'
 import TextButton from '../../TextButton'
@@ -75,7 +74,6 @@ class Quiz extends Component {
 function mapStateToProps (state, { navigation }) {
     const { deckKey } = navigation.state.params
     const deck = state.decks[deckKey]
-    console.log(Object.values(deck.questions))
     return {
         deckKey,
         deck: state.decks[deckKey],

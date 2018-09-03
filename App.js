@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { MainNavigator }  from './src/components/screens/MainNavigator'
 import reducers from './src/reducers'
 import middleware from './src/middleware'
