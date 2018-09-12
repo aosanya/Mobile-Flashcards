@@ -30,9 +30,9 @@ import {
     ))
   }
 
-  export function handleAddDeck (title) {
+  export function handleAddDeck (title, hasPictures) {
     return (dispatch) => {
-      return addNewDeck(title)
+      return addNewDeck(title, hasPictures)
         .then(({ decks }) => {
           dispatch(receiveDecks(decks))
           dispatch(addDeck())
@@ -58,17 +58,17 @@ import {
     }
   }
 
-  function saveQuestion (deck, question, answer) {
+  function saveQuestion (deck, question, answer, picture) {
     return Promise.all([
-      _saveQuestion(deck, question, answer)
+      _saveQuestion(deck, question, answer, picture)
     ]).then(([decks]) => (
       {decks}
     ))
   }
 
-  export function handleAddQuestion (deck, question, answer) {
+  export function handleAddQuestion (deck, question, answer, picture) {
     return (dispatch) => {
-      return saveQuestion(deck, question, answer)
+      return saveQuestion(deck, question, answer, picture)
         .then(({ decks }) => {
           dispatch(receiveDecks(decks))
           dispatch(addDeck())

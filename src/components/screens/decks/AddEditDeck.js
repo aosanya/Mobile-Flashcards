@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, StyleSheet, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Switch } from 'react-native'
 import { NavigationActions } from 'react-navigation'
-import { black } from '../../../services/utils/colors'
+import { black, blueChill } from '../../../services/utils/colors'
 import { largeFontSize, mediumFontSize, smallFontSize } from '../../../services/utils/fonts'
 import { handleAddDeck, handleSaveDeck } from '../../../services/flashCards/decks/api'
 
@@ -11,21 +11,26 @@ import TextButton from '../../TextButton'
 class AddEditDeck extends Component {
     state = {
         title: '',
+        hasPictures: false
     }
 
     componentDidMount(){
         this.setState((prevState) => {
-            return {title: this.props.deck === undefined ? '' : this.props.deck.title};
+            return {
+                        title: this.props.deck === undefined ? '' : this.props.deck.title,
+                        hasPictures: this.props.deck === undefined ? false : this.props.deck.hasPictures,
+                    }
         })
     }
 
     saveDeck = () => {
         const { deck } = this.props
         if (deck === undefined){
-            this.props.dispatch(handleAddDeck(this.state.title))
+            this.props.dispatch(handleAddDeck(this.state.title, this.state.hasPictures))
         }
         else{
             deck.title = this.state.title
+            deck.hasPictures = this.state.hasPictures
             this.props.dispatch(handleSaveDeck(deck))
         }
 
@@ -53,7 +58,13 @@ class AddEditDeck extends Component {
                         placeholder='Deck Title'>
                     </TextInput>
                 </View>
-                <TextButton style={{margin: 20, fontSize: mediumFontSize, color: black}} onPress={this.saveDeck}>
+                <View style={{flexDirection:'row', margin: 20}}>
+                    <Switch style={{margin: 5}} value={this.state.hasPictures} onValueChange={(hasPictures) => this.setState({hasPictures})}></Switch>
+                    <Text style={{fontSize: mediumFontSize, color: black, margin: 5}}>
+                        With Pictures
+                    </Text>
+                </View>
+                <TextButton style={{margin: 20, fontSize: mediumFontSize, color: blueChill}} onPress={this.saveDeck}>
                     Submit
                 </TextButton>
             </View>

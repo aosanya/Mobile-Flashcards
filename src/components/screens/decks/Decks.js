@@ -14,7 +14,7 @@ class Decks extends Component {
 
 
     _renderItem = ({item}) => (
-        <View>
+        <View key={item}>
             <TouchableOpacity
                 onPress={() => this.props.navigation.navigate(
                                  'DeckView',
@@ -38,6 +38,7 @@ class Decks extends Component {
             <FlatList
                 data={sortedDeckKeys}
                 renderItem={this._renderItem}
+                keyExtractor={(item, index) => index.toString()}
              />
         )
       }

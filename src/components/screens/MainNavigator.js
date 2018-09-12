@@ -66,7 +66,7 @@ const DeckTabs = createBottomTabNavigator({
       NewDeck: {
           screen: AddEditDeck,
           navigationOptions: {
-            tabBarLabel: 'Decks',
+            tabBarLabel: 'Add Deck',
             tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
           },
         },

@@ -6,6 +6,7 @@ let sampleDecks = {
         id:'D202915gq2kt6q4ths9ltz0crzej',
         timestamp:1535652540619,
         title: 'React',
+        hasPictures: false,
         questions: {
             'Q12915gq3kt6q4ths9ltz0crzej' : {
                 id : 'Q12915gq3kt6q4ths9ltz0crzej',
@@ -31,6 +32,7 @@ let sampleDecks = {
         id : 'D202915gq5kt6q4ths9ltz0crzek',
         timestamp:1535652540619,
         title: 'JavaScript',
+        hasPictures: false,
         questions: {
             'Q302915gq6kt6q4ths9ltz0crzej' : {
                 id : 'Q302915gq6kt6q4ths9ltz0crzej',
@@ -42,7 +44,25 @@ let sampleDecks = {
                 lastViewed: undefined
             }
         }
+    },
+    D202915gq5kt6q4ths9ltz0crzel: {
+        id : 'D202915gq5kt6q4ths9ltz0crzel',
+        timestamp:1535652540619,
+        title: 'Baby',
+        hasPictures: true,
+        questions: {
+            'Q302915gq6kt6q4ths9ltz0cr1ej' : {
+                id : 'Q302915gq6kt6q4ths9ltz0cr1ej',
+                timestamp:1535652540619,
+                question: 'Is there water in this picture?',
+                answer: 'Yes!',
+                views: 0,
+                correct: 0,
+                lastViewed: undefined
+            }
+        }
     }
+
 }
 
 function generateUID () {
@@ -63,21 +83,23 @@ function formatResults (results) {
     : JSON.parse(results)
 }
 
-function formatNewDeck(title) {
+function formatNewDeck(title, hasPictures) {
     return {
         id: generateUID(),
         timestamp: Date.now(),
         title: title,
+        hasPictures: hasPictures,
         questions: []
     }
 }
 
-function formatNewQuestion(question, answer) {
+function formatNewQuestion(question, answer, picture) {
     return {
         id : generateUID(),
         timestamp: Date.now(),
         question : question,
         answer : answer,
+        picture : picture,
         views: 0,
         correct: 0,
         lastViewed: undefined
@@ -88,8 +110,8 @@ export function _getDecks () {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(formatResults)
 }
 
-export function _addNewDeck (title) {
-    let deck = formatNewDeck(title)
+export function _addNewDeck (title, hasPictures) {
+    let deck = formatNewDeck(title, hasPictures)
     AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
         [deck.id]: deck
      }))
@@ -103,8 +125,8 @@ export function _saveDeck (deck) {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(formatResults)
 }
 
-export function _saveQuestion (deck, question, answer) {
-    const formattedQuestion = formatNewQuestion(question, answer)
+export function _saveQuestion (deck, question, answer, picture) {
+    const formattedQuestion = formatNewQuestion(question, answer, picture)
     deck.questions = {
         ...deck.questions,
         [formattedQuestion.id]: formattedQuestion
