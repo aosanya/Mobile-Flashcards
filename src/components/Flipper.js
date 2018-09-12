@@ -1,9 +1,10 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { View, TouchableOpacity, StyleSheet, Animated } from 'react-native'
 
-class Flipper extends PureComponent {
+class Flipper extends Component {
     componentWillMount() {
         this.value = 0
+        this.children = null
         this.animatedValue = new Animated.Value(0);
         this.animatedValue.addListener(({ value }) => {
             this.value = value
@@ -16,6 +17,14 @@ class Flipper extends PureComponent {
           inputRange: [0, 180],
           outputRange: ['180deg', '360deg']
         })
+    }
+
+    reset = () => {
+        Animated.spring(this.animatedValue,{
+            toValue: 0,
+            friction: 8,
+            tension: 10
+          }).start();
     }
 
     flipCard = () => {
@@ -36,6 +45,9 @@ class Flipper extends PureComponent {
 
     render() {
         const { children, style = {} } = this.props
+        if (this.children !== children){
+            this.reset()
+        }
 
         const frontAnimatedStyle = {
             transform: [

@@ -78,16 +78,17 @@ class PickImage extends Component {
           }
 
         return (
-            <View>
+            <View style={styles.image}>
                 {pickedImage ?
                  <Image source={{uri : this.state.pickedImage}} style={styles.pickedImage}></Image>
                  : <MaterialIcons
                         name='photo'
                         color={blueChill}
                         size={50}
+                        style={styles.image}
                     />
                 }
-                <TextButton onPress={this.pickImageHandler}> Pick Image</TextButton>
+                <TextButton onPress={this.pickImageHandler} style={{fontSize: smallFontSize}}> Pick Image</TextButton>
             </View>
         )
     }
@@ -102,9 +103,17 @@ const styles = StyleSheet.create({
     fontSize: mediumFontSize,
   },
   pickedImage: {
-    width: 100,
-    height: 100,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 150,
+    height: 150,
     borderColor: 'gray',
     borderWidth: 1,
-  }
+  },
+    image: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 })
