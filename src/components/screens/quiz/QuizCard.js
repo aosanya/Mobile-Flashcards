@@ -10,7 +10,7 @@ const QuizCard = (props) => {
         <ScrollView>
             <Flipper style={styles.card}>
                 <View style={styles.card}>
-                    { card.picture !== undefined ? <Image source={{uri : card.picture}} style={styles.pickedImage}></Image> : null}
+                    { card.picture !== null ? <Image source={{uri : card.picture}} style={styles.pickedImage}></Image> : null}
                     <Text style={{fontSize: largeFontSize, color: black}}>{card.question}</Text>
                     <Text style={{fontSize: mediumFontSize, color: blueChill, padding:15}}>Show Answer</Text>
                 </View>
@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     pickedImage: {
-        width: 200,
-        height: 200,
+        width: 150,
+        height: 150,
         borderColor: 'gray',
         borderWidth: 1,
     }

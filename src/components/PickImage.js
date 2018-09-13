@@ -57,7 +57,7 @@ class PickImage extends Component {
               <View style={styles.center}>
                 <Foundation name='alert' size={50} />
                 <Text>
-                  You denied camera roll access. You can fix this by visiting your settings and enabling camera roll for this deck.
+                  You denied camera roll access. You can fix this by visiting your settings and enabling camera roll for this app.
                 </Text>
               </View>
             )
@@ -68,7 +68,7 @@ class PickImage extends Component {
               <View style={styles.center}>
                 <Foundation name='alert' size={50} />
                 <Text>
-                  You need to enable camera roll for this deck.
+                  You need to enable camera roll for this app.
                 </Text>
                 <TextButton onPress={this.askPermission} style={{fontSize: smallFontSize}} >
                     Enable

@@ -3,6 +3,7 @@ import { View, TouchableOpacity, StyleSheet, Animated } from 'react-native'
 
 class Flipper extends Component {
     componentWillMount() {
+
         this.value = 0
         this.children = null
         this.animatedValue = new Animated.Value(0);
@@ -17,6 +18,10 @@ class Flipper extends Component {
           inputRange: [0, 180],
           outputRange: ['180deg', '360deg']
         })
+    }
+
+    componentDidUpdate() {
+        this.reset()
     }
 
     reset = () => {
@@ -45,9 +50,6 @@ class Flipper extends Component {
 
     render() {
         const { children, style = {} } = this.props
-        if (this.children !== children){
-            this.reset()
-        }
 
         const frontAnimatedStyle = {
             transform: [

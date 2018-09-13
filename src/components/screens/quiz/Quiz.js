@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { green, red, black } from '../../../services/utils/colors'
 import { mediumFontSize, smallFontSize } from '../../../services/utils/fonts'
+import { clearLocalNotification, setLocalNotification } from '../../../services/utils/helpers'
 import TextButton from '../../TextButton'
 import QuizCard from './QuizCard'
 import QuizResults from './QuizResults'
@@ -19,7 +20,9 @@ class Quiz extends Component {
         this.setState((prevState) => {
             return {currentCard: prevState.currentCard + 1};
         })
-
+        if (this.state.currentCard === this.props.questions.length){
+            clearLocalNotification().then(setLocalNotification)
+        }
     }
 
     correct = () => {
@@ -48,12 +51,35 @@ class Quiz extends Component {
         this.props.dispatch(handleSaveDeck(deck))
     }
 
+    restart = () => {
+        this.setState(() => {
+            return {
+                currentCard : 0,
+                correct : 0,
+                incorrect: 0,
+            };
+        })
+    }
+
+    backToDeck = () => {
+        this.props.navigation.navigate('DeckView', { deckKey: this.props.deckKey})
+    }
+
     render() {
         const { questions } = this.props
         return (
             <View>
                 {this.state.currentCard === questions.length
-                ? <QuizResults correct={this.state.correct} incorrect={this.state.incorrect}/>
+                ?
+                    <View>
+                        <QuizResults correct={this.state.correct} incorrect={this.state.incorrect}/>
+                        <TextButton style={{margin: 20, fontSize: mediumFontSize}} onPress={this.restart}>
+                            Restart Quiz
+                        </TextButton>
+                        <TextButton style={{margin: 20, fontSize: mediumFontSize}} onPress={this.backToDeck}>
+                            Back to Deck
+                        </TextButton>
+                    </View>
                 :
                     <View>
                         <Text style={styles.Paging}>{this.state.currentCard + 1}/{questions.length}</Text>
